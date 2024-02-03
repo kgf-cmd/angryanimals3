@@ -17,4 +17,5 @@ func _on_timer_timeout():
 
 
 func _on_input_event(viewport, event, shape_idx):
-	print(event) # Replace with function body.
+	if event.button_mask == 1:
+		position = get_global_mouse_position()
