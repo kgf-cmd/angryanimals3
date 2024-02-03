@@ -11,8 +11,12 @@ config_version=5
 [application]
 
 config/name="AngryAnimals2"
-run/main_scene="res://scenes/tester/tester.tscn"
+run/main_scene="res://scenes/Level/level.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
+
+[autoload]
+
+SignalManager="*res://singletons/signal_manager.gd"
 
 [display]
 
