@@ -14,3 +14,7 @@ func _process(delta):
 
 func _on_timer_timeout():
 	freeze = false # Replace with function body.
+
+
+func _on_input_event(viewport, event, shape_idx):
+	print(event) # Replace with function body.
