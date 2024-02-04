@@ -11,9 +11,13 @@ const DRAG_LIM_MIN: Vector2 = Vector2(-60, 0)
 var _start: Vector2 = Vector2.ZERO
 var _drag_start: Vector2 = Vector2.ZERO
 var _dragged_vector: Vector2 = Vector2.ZERO
+var _last_dragged_vector: Vector2 = Vector2.ZERO
+@onready var stretch_sound = $StretchSound
+@onready var arrow = $Arrow
 
 
 func _ready():
+	arrow.hide()
 	_start = position
 
 
@@ -27,9 +31,11 @@ func _physics_process(delta):
 func set_new_state(new_state: ANIMAL_STATE) -> void:
 	_state = new_state
 	if _state == ANIMAL_STATE.RELEASE:
+		arrow.hide()
 		freeze = false
 	elif _state == ANIMAL_STATE.DRAG:
 		_drag_start = get_global_mouse_position()
+		arrow.show()
 	
 	
 	
@@ -41,11 +47,21 @@ func detect_release() -> bool:
 			return true
 	return false
 	
+func scale_arrow() -> void:
+	arrow.rotation = (_start - position).angle()
+	
+	
+func play_stretch_sound() -> void:
+	if (_last_dragged_vector - _dragged_vector).length() > 0:
+		if stretch_sound.playing == false:
+			stretch_sound.play()
 	
 func get_dragged_vector(gmp: Vector2) -> Vector2:
 	return gmp - _drag_start
 	
 func drag_in_limits() -> void:
+	_last_dragged_vector = _dragged_vector
+	
 	_dragged_vector.x = clampf(
 		_dragged_vector.x,
 		DRAG_LIM_MIN.x,
@@ -65,7 +81,9 @@ func update_drag() -> void:
 		
 	var gmp = get_global_mouse_position()
 	_dragged_vector = get_dragged_vector(gmp)
+	play_stretch_sound()
 	drag_in_limits()
+	scale_arrow()
 
 func update(delta: float) -> void:
 	match _state:
