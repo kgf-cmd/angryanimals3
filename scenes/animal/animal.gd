@@ -7,16 +7,21 @@ var _state: ANIMAL_STATE = ANIMAL_STATE.READY
 
 const DRAG_LIM_MAX: Vector2 = Vector2(0, 60)
 const DRAG_LIM_MIN: Vector2 = Vector2(-60, 0)
+const IMPULSE_MULT: float = 20.0
+const IMPULS_MAX: float = 1200.0
 
 var _start: Vector2 = Vector2.ZERO
 var _drag_start: Vector2 = Vector2.ZERO
 var _dragged_vector: Vector2 = Vector2.ZERO
 var _last_dragged_vector: Vector2 = Vector2.ZERO
+var _arrow_scale_x: float = 0.0
 @onready var stretch_sound = $StretchSound
 @onready var arrow = $Arrow
+@onready var launch_sound = $LaunchSound
 
 
 func _ready():
+	_arrow_scale_x = arrow.scale.x
 	arrow.hide()
 	_start = position
 
@@ -27,15 +32,25 @@ func _physics_process(delta):
 	label.text = "%s" % ANIMAL_STATE.keys()[_state]
 	label.text = "%.1f,%.1f" % [_dragged_vector.x, _dragged_vector.y]
 
+func get_impuls() -> Vector2:
+	return _dragged_vector * -1 * IMPULSE_MULT
+	
+func set_drag() -> void:
+	_drag_start = get_global_mouse_position()
+	arrow.show()
+
+func set_release() -> void:
+	arrow.hide()
+	freeze = false
+	apply_central_impulse(get_impuls())
+	launch_sound.play()
 	
 func set_new_state(new_state: ANIMAL_STATE) -> void:
 	_state = new_state
 	if _state == ANIMAL_STATE.RELEASE:
-		arrow.hide()
-		freeze = false
+		set_release()
 	elif _state == ANIMAL_STATE.DRAG:
-		_drag_start = get_global_mouse_position()
-		arrow.show()
+		set_drag()
 	
 	
 	
@@ -48,6 +63,11 @@ func detect_release() -> bool:
 	return false
 	
 func scale_arrow() -> void:
+	var imp_len = get_impuls().length()
+	var perc = imp_len / IMPULS_MAX
+	
+	arrow.scale.x = (_arrow_scale_x * perc) + _arrow_scale_x
+	
 	arrow.rotation = (_start - position).angle()
 	
 	
