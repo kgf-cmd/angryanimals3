@@ -30,7 +30,7 @@ func set_new_state(new_state: ANIMAL_STATE) -> void:
 func detect_release() -> bool:
 	if _state == ANIMAL_STATE.DRAG:
 		if Input.is_action_just_released("drag") == true:
-			pass
+			set_new_state(ANIMAL_STATE.RELEASE)
 			return true
 	return false
 	
@@ -45,7 +45,7 @@ func update_drag() -> void:
 func update(delta: float) -> void:
 	match _state:
 		ANIMAL_STATE.DRAG:
-			pass
+			update_drag()
 
 
 
