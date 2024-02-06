@@ -23,3 +23,11 @@ position = Vector2(21, 593)
 [node name="cup" parent="Water" instance=ExtResource("4_faq73")]
 position = Vector2(326, -125)
 scale = Vector2(0.6, 0.6)
+
+[node name="cup2" parent="Water" instance=ExtResource("4_faq73")]
+position = Vector2(486, -310)
+scale = Vector2(0.6, 0.6)
+
+[node name="cup3" parent="Water" instance=ExtResource("4_faq73")]
+position = Vector2(727, -406)
+scale = Vector2(0.6, 0.6)
