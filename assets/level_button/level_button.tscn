@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dr6t77eo5g2gk"]
+[gd_scene load_steps=4 format=3 uid="uid://dr6t77eo5g2gk"]
 
 [ext_resource type="Texture2D" uid="uid://bei5tobjfrj0u" path="res://assets/ui/panel_beige.png" id="1_ki80k"]
 [ext_resource type="LabelSettings" uid="uid://1xt70fwe3mwq" path="res://assets/lg_48_white.tres" id="2_3pcrq"]
+[ext_resource type="Script" path="res://assets/level_button/level_button.gd" id="2_csfdd"]
 
 [node name="LevelButton" type="TextureButton"]
 anchors_preset = -1
@@ -15,6 +16,7 @@ offset_right = -9.536
 offset_bottom = -9.896
 pivot_offset = Vector2(50, 50)
 texture_normal = ExtResource("1_ki80k")
+script = ExtResource("2_csfdd")
 
 [node name="MC" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -27,16 +29,20 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="MC"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MC/VBoxContainer"]
+[node name="LevelLabel" type="Label" parent="MC/VBoxContainer"]
 layout_mode = 2
 text = "3"
 label_settings = ExtResource("2_3pcrq")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="MC/VBoxContainer"]
+[node name="ScoreLabel" type="Label" parent="MC/VBoxContainer"]
 layout_mode = 2
 text = "1000"
 label_settings = ExtResource("2_3pcrq")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="mouse_entered" from="MC/VBoxContainer/LevelLabel" to="." method="_on_level_label_mouse_entered"]
+[connection signal="mouse_exited" from="MC/VBoxContainer/LevelLabel" to="." method="_on_level_label_mouse_exited"]
