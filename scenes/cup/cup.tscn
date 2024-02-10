@@ -29,7 +29,7 @@ _data = {
 "vanish": SubResource("Animation_o7s3l")
 }
 
-[node name="cup" type="StaticBody2D"]
+[node name="cup" type="StaticBody2D" groups=["cup"]]
 position = Vector2(0, -3)
 script = ExtResource("1_47efv")
 
