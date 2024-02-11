@@ -1,14 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6u34lmmbln5h"]
+[gd_scene load_steps=5 format=3 uid="uid://b6u34lmmbln5h"]
 
 [ext_resource type="Texture2D" uid="uid://ibk0r5y0trre" path="res://assets/env/MainBG.png" id="1_wokot"]
 [ext_resource type="PackedScene" uid="uid://dr6t77eo5g2gk" path="res://assets/level_button/level_button.tscn" id="2_f7t2f"]
-[ext_resource type="FontFile" uid="uid://t4s3qxeyvfy2" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="3_n7l8f"]
+[ext_resource type="LabelSettings" uid="uid://b5ney7uvnpncg" path="res://assets/lg_96_bl.tres" id="3_p2ed4"]
 [ext_resource type="AudioStream" uid="uid://dh62fjedxpru4" path="res://assets/audio/birdsong.wav" id="4_7432k"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_xq4yl"]
-font = ExtResource("3_n7l8f")
-font_size = 96
-font_color = Color(0.356863, 0.580392, 1, 1)
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -63,7 +58,7 @@ offset_right = 328.0
 offset_bottom = 97.0
 grow_horizontal = 2
 text = "ANGRY ANIMALS"
-label_settings = SubResource("LabelSettings_xq4yl")
+label_settings = ExtResource("3_p2ed4")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
